@@ -93,8 +93,7 @@ def send_payload(url: str) -> tuple:
         return instantiated_url, exploitable 
     instantiated_url = url.replace('http://', 'http://www.')
     url, exploitable, isReturnable = deliver_request(instantiated_url)
-    if isReturnable:
-        return instantiated_url, exploitable
+    return instantiated_url, exploitable
 
 def parse_args():
     parser = ArgumentParser(description=colored("CRLFi Scanner", color='yellow'), epilog=colored("Enjoy bug hunting",color='yellow'))

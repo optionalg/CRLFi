@@ -1,3 +1,6 @@
+# Version 3.3
+* Bug fixes in output generation
+
 # Version 3.2
 * Rechanged from faster_than_requests to requests due to potential deadlock
 * Lots of reduction memory due to argparse being moved to function

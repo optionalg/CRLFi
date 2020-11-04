@@ -22,32 +22,33 @@ def async_generator(url: str):
     if parsed_url.query:
         print_asyncgen('query payload')
         try:
-            for payloaded_url in Payloader.query_generator(parsed_url, payloads):
-                to_try.append(payloaded_url)
+            for url in Payloader.query_generator(parsed_url, payloads):
+                to_try.append(url)
         except Exception as E:
             print(E)
         print_asyncgen('path payload')
         try:
-            for payloaded_url in Payloader.path_generator(parsed_url, payloads):
-                to_try.append(payloaded_url)
+            for url in Payloader.path_generator(parsed_url, payloads):
+                to_try.append(url)
         except Exception as E:
             print(E)
     elif parsed_url.path:
         print_asyncgen('path payload')
         try:
-            for payloaded_url in Payloader.path_generator(parsed_url, payloads):
-                to_try.append(payloaded_url)
+            for url in Payloader.path_generator(parsed_url, payloads):
+                to_try.append(url)
         except Exception as E:
             print(E)
     elif parsed_url.netloc:
         print_asyncgen('domain payload')
-        for payloaded_url in Payloader.netloc_generator(parsed_url, payloads):
-            to_try.append(payloaded_url)
+        for url in Payloader.netloc_generator(parsed_url, payloads):
+            to_try.append(url)
 
 with ThreadPoolExecutor(max_workers=argv.threads) as mapper:
     mapper.map(async_generator, input_wordlist)
+
 with ThreadPoolExecutor(max_workers=argv.threads) as submitter:
-    objects = [submitter.submit(send_payload, payloaded_url) for payloaded_url in to_try]
+    objects = (submitter.submit(send_payload, url) for url in to_try)
     if argv.output_directory:
         write_output(objects, filename = argv.domain, path = argv.output_directory)
     elif argv.output:
