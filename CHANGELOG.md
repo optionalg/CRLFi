@@ -1,6 +1,10 @@
+# Version 3.6
+* 2 class functions merged into one of ParamReplacer, Engine updated
+
 # Version 3.5
 * Addition of print_skip as a class variable, Engine significantly improved
 * Improvement in send_function as well as reduced verbosity
+* Slight variable naming improvements
 
 # Version 3.4
 * PathFunctions library improvement

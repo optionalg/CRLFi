@@ -12,36 +12,26 @@ class ParamReplace:
         length = len(parameter)
         while counter != length:
             parameter_temporary_value = value[counter]
-            for i in range(length):
-                value[counter] = replace_str
-                c_counter.append(parameter[i] + '=' + value[i])
-            returner_list.append(c_counter)
-            value[counter] = parameter_temporary_value
-            counter += 1
-            c_counter = []
-        return returner_list
-    
-    def only_replacement(self, parameter: list, value: list, replace_str: str, only: list) -> list:
-        returner_list = []
-        c_counter  = []
-        counter = 0
-        length = len(parameter)
-        while counter != length:
-            parameter_temporary_value = value[counter]
             for index in range(length):
                 value[counter] = replace_str
-                if parameter[index] in only:
+                if only:
+                    if parameter[index] in only:
+                        c_counter.append(parameter[index] + '=' + value[index])
+                else:
                     c_counter.append(parameter[index] + '=' + value[index])
+
             returner_list.append(c_counter)
             value[counter] = parameter_temporary_value
             counter += 1
             c_counter = []
-        #c_counter = []
-        #for x in returner_list:
-        #    if replace_str in [y.split('=')[-1] for y in x]:
-        #        c_counter.append(x)
-        return [x for x in returner_list if replace_str in [y.split('=')[-1] for y in x]]
-        #return c_counter
+        if only:
+            # Decreasing repetition of data (optional)
+            return [x for x in returner_list if replace_str in [y.split('=')[-1] for y in x]]
+        else:
+            return returner_list
+    
+    #def only_replacement(self, parameter: list, value: list, replace_str: str, only: list) -> list:
+    #    return [x for x in returner_list if replace_str in [y.split('=')[-1] for y in x]]
 
     def generate_url(self, half_url: str, parameters: list) -> list:
         return [ender(half_url, '?') + '&'.join(parameter) for parameter in parameters]

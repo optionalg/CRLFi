@@ -32,7 +32,7 @@ class Engine:
         if not params_to_try:
             return to_try
         for payload in payloads:
-            query_list = self.Replacer.only_replacement(parameters, values, unstarter(payload, '/'), params_to_try)
+            query_list = self.Replacer.replacement(parameters, values, unstarter(payload, '/'), params_to_try)
             payloads_list = self.Replacer.generate_url(upto_path, query_list)
             _ = [to_try.append(line) for line in payloads_list if line]
         return to_try
