@@ -1,6 +1,8 @@
 # Version 3.2
 * Rechanged from faster_than_requests to requests due to potential deadlock
 * Lots of reduction memory due to argparse being moved to function
+* Improved Engine; path query and netloc generator improvements
+* Fixed bug that causes not trying of certain URLs
 
 # Version 3.1
 * Try except reduced in async generator to gain 4KB reduction in binary size
