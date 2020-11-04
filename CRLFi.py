@@ -15,32 +15,30 @@ Payloader = Engine()
 
 def async_generator(url: str):
     global to_try
-    if not url:
-        return []
     parsed_url = urlparse(urler(url))
-    print_asyncgen = lambda data: print(f"{Color.information} Generating {data} for: {colored(url, color='cyan')}")
+    print_generator = lambda data: print(f"{Color.information} Generating {data} for: {colored(url, color='cyan')}")
     if parsed_url.query:
-        print_asyncgen('query payload')
+        print_generator('query payload')
         try:
             for url in Payloader.query_generator(parsed_url, payloads):
                 to_try.append(url)
         except Exception as E:
             print(E)
-        print_asyncgen('path payload')
+        print_generator('path payload')
         try:
             for url in Payloader.path_generator(parsed_url, payloads):
                 to_try.append(url)
         except Exception as E:
             print(E)
     elif parsed_url.path:
-        print_asyncgen('path payload')
+        print_generator('path payload')
         try:
             for url in Payloader.path_generator(parsed_url, payloads):
                 to_try.append(url)
         except Exception as E:
             print(E)
     elif parsed_url.netloc:
-        print_asyncgen('domain payload')
+        print_generator('domain payload')
         for url in Payloader.netloc_generator(parsed_url, payloads):
             to_try.append(url)
 
@@ -49,8 +47,9 @@ with ThreadPoolExecutor(max_workers=argv.threads) as mapper:
 
 with ThreadPoolExecutor(max_workers=argv.threads) as submitter:
     objects = (submitter.submit(send_payload, url) for url in to_try)
+    obj = tuple(objects)
     if argv.output_directory:
-        write_output(objects, filename = argv.domain, path = argv.output_directory)
+        write_output(obj, filename = argv.domain, path = argv.output_directory)
     elif argv.output:
-        write_output(objects, filename = argv.output)
+        write_output(obj, filename = argv.output)
 

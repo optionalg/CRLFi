@@ -51,24 +51,19 @@ def write_output(objects, filename=None, path=None):
 def deliver_request(url):
     r = randint(0, 1)
     isReturnable = False
-    display_error = lambda error: f"{Color.bad} Skipping url due to {error}"
+    print_error = lambda url,error: print(f"{Color.bad} Skipping {colored(url, color='cyan')} due to {error}")
     print(f"{Color.information} Trying {colored(url, color='cyan')} against web server!")
     try:
         if r:
             response = s.get(url, timeout=5)
-        elif not r:
+        else:
             response = s.head(url, timeout=5)
-    except ConnectionError:
-        print(display_error("ConnectionError"))
-        isReturnable = True
-        return url, False, isReturnable
-    except Timeout:
-        print(display_error("TimeoutError"))
+    except (ConnectionError,Timeout):
         isReturnable = True
         return url, False, isReturnable
     except Exception as E:
-        print(display_error("OtherError"))
         isReturnable = True
+        print(f"{Color.bad} Skipping {colored(url, color='cyan')} due to {E}")
         return url, False, isReturnable
     try:
         print(f"{Color.good} Response header: {response.headers['evil-here']}")

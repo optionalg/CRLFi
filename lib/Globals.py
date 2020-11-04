@@ -19,6 +19,7 @@ payloads = [
 "/%3B%0aSet-Cookie:bugbounty=bugbountyplz",
 "/%E5%98%8A%E5%98%8DSet-Cookie:bugbounty=bugbountyplz",
 ]
+payloads = ["test"]
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36'

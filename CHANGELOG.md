@@ -1,4 +1,14 @@
+# Version 3.5
+* Addition of print_skip as a class variable, Engine significantly improved
+* Improvement in send_function as well as reduced verbosity
+
+# Version 3.4
+* PathFunctions library improvement
+* Fixed generator issue as its not showing output
+* Now the tool prints skipped url
+
 # Version 3.3
+* Unnecessary color in skip
 * Bug fixes in output generation
 
 # Version 3.2

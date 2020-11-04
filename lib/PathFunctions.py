@@ -1,7 +1,5 @@
 def merge(xpath: str, ypath: str) -> str:
-    xpath = urlerslasher(xpath)
-    ypath = unstarter(ypath, '/')
-    return xpath + ypath
+    return urlerslasher(xpath) + unstarter(ypath, '/')
 
 def urlerslasher(xpath: str) -> str:
     return ender(urler(xpath), '/')
